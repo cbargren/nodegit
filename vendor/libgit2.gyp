@@ -21,10 +21,10 @@
         "SRC_UTIL_H_",
       ],
       "dependencies": [
-        "zlib",
+        "zlib.gyp:zlib",
         "http_parser/http_parser.gyp:http_parser",
         "openssl/openssl.gyp:openssl",
-        "libssh2"
+        "libssh2.gyp:libssh2"
       ],
       "sources": [
         "libgit2/src/annotated_commit.h",
@@ -350,6 +350,9 @@
             "libgit2/deps/regex/regex.c",
           ],
         }, {
+          "dependencies": [
+            "libcurl.gyp:libcurl"
+          ],
           "libraries": [
             "-lpthread",
           ],
@@ -386,170 +389,7 @@
               "libgit2/src/tls_stream.c",
               "libgit2/src/tls_stream.h"
           ],
-          "targets": [
-            {
-              'target_name': 'libcurl',
-              'type': '<(library)',
-              'include_dirs': [
-                '.',
-                'curl',
-                'curl/lib',
-                'curl/include',
-              ],
-              'defines': [
-                'USE_SSLEAY',
-                'USE_OPENSSL',
-                'USE_IPV6',
-                'USE_LIBSSH2',
-                'USE_ZLIB',
-                'USE_WINDOWS_SSPI',
-                'HAVE_SPNEGO',
-                'HAVE_ZLIB_H',
-                'HAVE_LIBSSH2_H',
-                'HAVE_ZLIB',
-                'HAVE_LIBZ',
-                'BUILDING_LIBCURL',
-              ],
-              'dependencies': [
-                'openssl/openssl.gyp:openssl',
-                'libssh2.gyp:libssh2',
-                'zlib.gyp:zlib',
-              ],
-              'direct_dependent_settings': {
-                'conditions': [
-                  ['_type=="static_library"',
-                    {
-                      'defines':[
-                        'CURL_STATICLIB'
-                      ]
-                    }
-                  ]
-                ],
-                'include_dirs': [
-                  'curl/include',
-                  'build'
-                ],
-              },
-              'sources':[
-                'build/tool_hugehelp.c',
-                'curl/lib/vtls/axtls.c',
-                'curl/lib/vtls/darwinssl.c',
-                'curl/lib/vtls/schannel.c',
-                'curl/lib/vtls/cyassl.c',
-                'curl/lib/vtls/gskit.c',
-                'curl/lib/vtls/gtls.c',
-                'curl/lib/vtls/nss.c',
-                'curl/lib/vtls/openssl.c',
-                'curl/lib/vtls/polarssl.c',
-                'curl/lib/vtls/polarssl_threadlock.c',
-                'curl/lib/vtls/vtls.c',
-                'curl/lib/vtls/mbedtls.c',
-                'curl/lib/dotdot.c',
-                'curl/lib/file.c',
-                'curl/lib/timeval.c',
-                'curl/lib/base64.c',
-                'curl/lib/hostip.c',
-                'curl/lib/progress.c',
-                'curl/lib/formdata.c',
-                'curl/lib/cookie.c',
-                'curl/lib/http.c',
-                'curl/lib/sendf.c',
-                'curl/lib/ftp.c',
-                'curl/lib/url.c',
-                'curl/lib/dict.c',
-                'curl/lib/if2ip.c',
-                'curl/lib/speedcheck.c',
-                'curl/lib/ldap.c',
-                'curl/lib/version.c',
-                'curl/lib/getenv.c',
-                'curl/lib/escape.c',
-                'curl/lib/mprintf.c',
-                'curl/lib/telnet.c',
-                'curl/lib/netrc.c',
-                'curl/lib/getinfo.c',
-                'curl/lib/transfer.c',
-                'curl/lib/strequal.c',
-                'curl/lib/easy.c',
-                'curl/lib/security.c',
-                'curl/lib/curl_fnmatch.c',
-                'curl/lib/fileinfo.c',
-                'curl/lib/ftplistparser.c',
-                'curl/lib/wildcard.c',
-                'curl/lib/memdebug.c',
-                'curl/lib/http_chunks.c',
-                'curl/lib/strtok.c',
-                'curl/lib/connect.c',
-                'curl/lib/llist.c',
-                'curl/lib/hash.c',
-                'curl/lib/multi.c',
-                'curl/lib/content_encoding.c',
-                'curl/lib/share.c',
-                'curl/lib/http_digest.c',
-                'curl/lib/md4.c',
-                'curl/lib/md5.c',
-                'curl/lib/http_negotiate.c',
-                'curl/lib/inet_pton.c',
-                'curl/lib/strtoofft.c',
-                'curl/lib/strerror.c',
-                'curl/lib/amigaos.c',
-                'curl/lib/hostasyn.c',
-                'curl/lib/hostip4.c',
-                'curl/lib/hostip6.c',
-                'curl/lib/hostsyn.c',
-                'curl/lib/inet_ntop.c',
-                'curl/lib/parsedate.c',
-                'curl/lib/select.c',
-                'curl/lib/tftp.c',
-                'curl/lib/splay.c',
-                'curl/lib/strdup.c',
-                'curl/lib/socks.c',
-                'curl/lib/ssh.c',
-                'curl/lib/rawstr.c',
-                'curl/lib/curl_addrinfo.c',
-                'curl/lib/socks_gssapi.c',
-                'curl/lib/socks_sspi.c',
-                'curl/lib/curl_sspi.c',
-                'curl/lib/slist.c',
-                'curl/lib/nonblock.c',
-                'curl/lib/curl_memrchr.c',
-                'curl/lib/imap.c',
-                'curl/lib/pop3.c',
-                'curl/lib/smtp.c',
-                'curl/lib/smb.c',
-                'curl/lib/pingpong.c',
-                'curl/lib/rtsp.c',
-                'curl/lib/curl_threads.c',
-                'curl/lib/warnless.c',
-                'curl/lib/hmac.c',
-                'curl/lib/curl_rtmp.c',
-                'curl/lib/openldap.c',
-                'curl/lib/curl_gethostname.c',
-                'curl/lib/gopher.c',
-                'curl/lib/idn_win32.c',
-                'curl/lib/http_negotiate_sspi.c',
-                'curl/lib/http_proxy.c',
-                'curl/lib/non-ascii.c',
-                'curl/lib/asyn-ares.c',
-                'curl/lib/asyn-thread.c',
-                'curl/lib/curl_des.c',
-                'curl/lib/curl_gssapi.c',
-                'curl/lib/curl_ntlm.c',
-                'curl/lib/curl_ntlm_wb.c',
-                'curl/lib/curl_ntlm_core.c',
-                'curl/lib/curl_ntlm_msgs.c',
-                'curl/lib/curl_sasl.c',
-                'curl/lib/curl_sasl_gssapi.c',
-                'curl/lib/curl_sasl_sspi.c',
-                'curl/lib/curl_multibyte.c',
-                'curl/lib/curl_endian.c',
-                'curl/lib/hostcheck.c',
-                'curl/lib/conncache.c',
-                'curl/lib/pipeline.c',
-              ],
-            },
-          ],
-        }
-        ]
+        }],
       ],
       "include_dirs": [
         "libgit2/include",
@@ -561,111 +401,5 @@
         ],
       },
     },
-    {
-      "target_name": "zlib",
-      "type": "static_library",
-      "sources": [
-        "libgit2/deps/zlib/adler32.c",
-        "libgit2/deps/zlib/crc32.c",
-        "libgit2/deps/zlib/crc32.h",
-        "libgit2/deps/zlib/deflate.c",
-        "libgit2/deps/zlib/deflate.h",
-        "libgit2/deps/zlib/inffast.c",
-        "libgit2/deps/zlib/inffast.h",
-        "libgit2/deps/zlib/inffixed.h",
-        "libgit2/deps/zlib/inflate.c",
-        "libgit2/deps/zlib/inflate.h",
-        "libgit2/deps/zlib/inftrees.c",
-        "libgit2/deps/zlib/inftrees.h",
-        "libgit2/deps/zlib/trees.c",
-        "libgit2/deps/zlib/trees.h",
-        "libgit2/deps/zlib/zconf.h",
-        "libgit2/deps/zlib/zlib.h",
-        "libgit2/deps/zlib/zutil.c",
-        "libgit2/deps/zlib/zutil.h",
-      ],
-      "defines": [
-        "NO_VIZ",
-        "STDC",
-        "NO_GZIP",
-      ],
-      "conditions": [
-        ["OS=='win'", {
-          "include_dirs": [
-            "libgit2/deps/regex"
-          ]
-        }]
-      ],
-      "include_dirs": [
-        "libgit2/include"
-      ],
-      "direct_dependent_settings": {
-        "include_dirs": [
-          "libgit2/deps/zlib",
-        ],
-      },
-    },
-    {
-      "target_name": "libssh2",
-      "type": "static_library",
-      "defines": [
-        "NETSNMP_ENABLE_IPV6"
-      ],
-      "sources": [
-        "libssh2/src/agent.c",
-        "libssh2/src/crypt.c",
-        "libssh2/src/keepalive.c",
-        "libssh2/src/libgcrypt.c",
-        "libssh2/src/openssl.c",
-        "libssh2/src/publickey.c",
-        "libssh2/src/sftp.c",
-        "libssh2/src/version.c",
-        "libssh2/src/channel.c",
-        "libssh2/src/global.c",
-        "libssh2/src/kex.c",
-        "libssh2/src/mac.c",
-        "libssh2/src/packet.c",
-        "libssh2/src/scp.c",
-        "libssh2/src/transport.c",
-        "libssh2/src/comp.c",
-        "libssh2/src/hostkey.c",
-        "libssh2/src/knownhost.c",
-        "libssh2/src/misc.c",
-        "libssh2/src/pem.c",
-        "libssh2/src/session.c",
-        "libssh2/src/userauth.c",
-      ],
-      "include_dirs": [
-        ".",
-        "libssh2/include",
-      ],
-      "dependencies": [
-        "openssl/openssl.gyp:openssl"
-      ],
-      "direct_dependent_settings": {
-        "include_dirs": [
-          "libssh2/include"
-        ]
-      },
-      "conditions": [
-        ["OS=='win'", {
-          "include_dirs": [
-            "libssh2/src",
-            "libssh2/win32",
-            "libssh2/include"
-          ],
-          "defines!": [
-            "HAVE_POLL"
-          ],
-          "direct_dependent_settings": {
-            "include_dirs": [
-              "libssh2/src",
-              "libssh2/win32",
-              "libssh2/include"
-            ]
-          }
-        }],
-      ]
-    }
   ]
 }
